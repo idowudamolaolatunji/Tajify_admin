@@ -1,0 +1,205 @@
+.admin__dashboard {
+    display: grid;
+    grid-template-columns: 25rem 10fr;
+}
+
+#logo-container img {
+    height: 6rem;
+    margin: 0 0 0 2rem;
+}
+.admin__sidebar, .admin__main {
+    height: 100vh;
+}
+.admin__sidebar {
+    background-color: #fff;
+    padding: 2rem 0 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar--list {
+    padding: 2.8rem 1.4rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.sidebar--logout {
+    padding: 0 1.6rem 0 2.4rem;
+    margin-top: auto;
+    margin-bottom: 4rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+.sidebar--item {
+    color: #444;
+    font-weight: 600;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    background-color: transparent;
+    border: 1.4px solid transparent;
+    padding: 1rem 1.2rem;
+    border-radius: .6rem;
+    transition: all .35s ease-in;
+    cursor: pointer;
+}
+.sidebar--item:hover, .sidebar--item.sidebar--active {
+    /* background-color: #ff7bb0; */
+    border-color: #ff0066;
+}
+.sidebar--item:hover .sidebar--icon, .sidebar--item:hover,
+.sidebar--item.sidebar--active, .sidebar--active .sidebar--icon  {
+    /* color: #fff; */
+    color: #ff0066;
+}
+.sidebar--icon {
+    font-size: 1.8rem;
+    color: #555;
+    transition: all .35s ease-in;
+}
+
+
+
+.admin__nav {
+    height: 8rem;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+
+    display: flex;
+    align-items: center;
+    padding: 0 2.8rem;
+}
+.admin__nav span {
+    display: flex;
+    align-items: center;
+    gap: 2.8rem;
+    margin-left: auto;
+}
+.admin__nav .nav--icon {
+    font-size: 2.8rem !important;
+    color: #333;    
+}
+.nav--icon.admin {
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+
+.admin__main {
+    display: flex;
+    flex-direction: column;
+    background-color: #eee;
+    
+    border-top-left-radius: 5.2rem;
+    border-bottom-left-radius: 5.2rem;
+}
+.admin__container {
+    padding: 3.2rem 2.4rem 2.4rem;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.admin__insight {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 1rem 1rem 4rem rgba(0, 0, 0, .1);
+    border-radius: .68rem;
+    border: 1px solid #ddd;
+}
+.insight {
+    padding: 2rem;
+    border: 1px solid #ddd;
+    background-color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    align-items: flex-end;
+}
+.insight:hover {
+    border: 1px solid #d0ecc8;
+}
+
+
+.insight--content {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+.insight--icon {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #777;
+}
+.insight--title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.insight--number {
+    font-size: 2.4rem;
+}
+
+
+
+/* ALERTS */
+.alert {
+    padding: 2.4rem;
+    border-radius: .4rem;
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+  
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2000000;
+    transition: all .35s ease-in;
+  }
+  .alert.alert--success {
+    background-color: #C6F6D5;
+    box-shadow: .2rem .2rem 2rem rgba(0, 128, 1, .25);
+  }
+  .alert.alert--error {
+    background-color: #FED7D7;
+    box-shadow: .2rem .2rem 2rem rgba(255, 0, 102, .25);
+  }
+  .alert--icon {
+    font-size: 2.4rem;
+  }
+  .alert--success .alert--icon {
+    color: #38A169;
+  }
+  .alert--error .alert--icon {
+    color: #E53E3E;
+  }
+  .alert--text {
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+  
+/*  */
+.status p {
+    display: inline-block;
+    padding: 1rem 1.4rem;
+    border-radius: .8rem;
+}
+.status--pending p {
+    background-color: #ffe0cfe2;
+    color: #ff9248;
+}
+.status--error p {
+    background-color: #ffb09ce2;
+    color: #ee2400;
+}
+.status--success p {
+    color: #008001;
+    background-color: #d7ecd1e2;
+}
