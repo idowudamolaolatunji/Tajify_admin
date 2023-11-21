@@ -17,7 +17,7 @@ import "./main.css";
 import "../../assets/css/table.css";
 import DashboardEl from "../../components/DashboardMain";
 import UserTable from "../../components/UserTable";
-import TajiTransactionsEl from "../../components/TajiTransactionsEl";
+import PendingTransactions from "../../components/TransactionTable";
 
 // import Logo from '../../assets/imgs/TAJIFY-LOGO.png';
 import Logo from '../../assets/imgs/logo-complete.png';
@@ -77,7 +77,7 @@ function index() {
 				<section className="admin__container">
 					{activeTab === "dashboard" && <DashboardEl />}
 					{activeTab === "liquidity" && <LiquidityPool />}
-					{activeTab === "pendingTransactions" && <TajiTransactionsEl />}
+					{activeTab === "pendingTransactions" && <PendingTransactions />}
 					{activeTab === "users" && <UserTable />}
 				</section>
 			</div>
