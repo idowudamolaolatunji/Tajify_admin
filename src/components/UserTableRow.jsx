@@ -9,8 +9,8 @@ function UserTableRow({ fullname, email, followers, following, totalFeeds, total
             <td>{email}</td>
             <td>{followers}</td>
             <td>{following}</td>
-            <td>{totalFeeds}</td>
-            <td>{totalBlogs}</td>
+            {/* <td>{totalFeeds}</td>
+            <td>{totalBlogs}</td> */}
         </tr>
     );
 }
