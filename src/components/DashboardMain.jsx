@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InsightFigure from "./InsightFigure";
 import DashboardTable from "./DashboardTable";
-import Spinner from "./Spinner";
+
 
 import { FaUsers } from "react-icons/fa";
 import { MdPendingActions } from "react-icons/md";
@@ -13,6 +13,7 @@ import { RiStackLine } from "react-icons/ri";
 import { GrStakeholder } from "react-icons/gr";
 
 import { numberFormatter } from "../utils/helper";
+import Spinner from "./Spinner";
 
 
 
@@ -31,10 +32,11 @@ function DashboardMain() {
 
 	useEffect(() => {
 		async function fetchAll() {
+			setIsLoading(true)
 			const [usersRes, pendingDepoRes, pendingWithdrRes, stakeHoldersRes, boughtStakeRes, blogsRes, productsRes] = await Promise.all([ 
 				await fetch("http://localhost:3005/api/users"),
-				await fetch("http://localhost:3005/api/wallets/transactions/pending/deposits"), 
-				await fetch("http://localhost:3005/api/wallets/transactions/pending/withdrawals"),
+				await fetch("http://localhost:3005/api/transactions/pending/deposits"), 
+				await fetch("http://localhost:3005/api/transactions/pending/withdrawals"),
 				await fetch("http://localhost:3005/api/stakings/all-stakeholders"),
 				await fetch("http://localhost:3005/api/stakings/all-stakings"),
 				await fetch("http://localhost:3005/api/blogs/"),
@@ -51,8 +53,9 @@ function DashboardMain() {
 			const stakings = boughtStakeData.data.stakings;
 
 			const slotsBought = stakings.reduce((acc, curr) => {
-				return acc + curr.slotsAmount;
+				return acc + curr.slotAmount;
 			}, 0);
+
 			const slotsRemaining = Number(availableSlots - slotsBought);
 			console.log(stakings, slotsBought, slotsRemaining)
 
@@ -64,12 +67,13 @@ function DashboardMain() {
 			setAvailableSlots(slotsRemaining);
 			setBlogPosts(blogsData.data.blogs);
 			setUploadedProducts(productsData.data.products);
+			setIsLoading(false)
 		}
 		fetchAll();
 	}, []);
 	return (
 		<>
-			<div className="admin__insight">
+			<div className="admin__insight" style={{ marginBottom: '4.8rem' }}>
 				<InsightFigure
 					insightIcon={<FaUsers />}
 					insightTitle={"Total Active Users"}
@@ -109,10 +113,11 @@ function DashboardMain() {
 					insightIcon={<LuShoppingBasket />}
 					insightTitle={"Uploaded Products"}
 					insightFigure={uploadedProducts.length}
-				/>			
+				/>
 			</div>
 
-			<DashboardTable />
+			{isLoading && <Spinner />}
+			<DashboardTable pendingWithdrawals={pendingWithdrawals} pendingDeposits={pendingDeposits} />
 		</>
 	);
 }

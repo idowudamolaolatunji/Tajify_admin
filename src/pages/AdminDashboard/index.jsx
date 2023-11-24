@@ -67,6 +67,7 @@ function index() {
 				</span>
 			</menu>
 
+
 			<div className="admin__main">
 				<nav className="admin__nav">
 					<span>
@@ -74,6 +75,7 @@ function index() {
 						<RiAdminLine className="nav--icon admin" />
 					</span>
 				</nav>
+
 				<section className="admin__container">
 					{activeTab === "dashboard" && <DashboardEl />}
 					{activeTab === "liquidity" && <LiquidityPool />}

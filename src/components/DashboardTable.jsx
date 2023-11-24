@@ -1,45 +1,80 @@
-import React, { useEffect, useState } from 'react'
-import TableRow from './TransactionTableRow';
+import React, { useState } from "react";
+import DataTable from "react-data-table-component";
 
-import Spinner from './Spinner'
+import { currencyConverter, dateConverter } from "../utils/helper";
+import { BiSolidSortAlt } from "react-icons/bi";
 
-function DashboardTable() {
-    const [pendingDeposits, setPendingDeposits] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+import "../assets/css/table.css";
 
-    useEffect(() => {
-        async function fetchPendingDeposits() {
-            setIsLoading(true)
-            const response = await fetch('http://api.tajify.com/api/pending-deposit')
-            const data = await response.json()
-            console.log(data.data.pendingDeposits)
-            setPendingDeposits(data.data.pendingDeposits)
-            setIsLoading(false)
-        }
-        // fetchPendingDeposits();
-    }, []);
+const sortIcon = ( <BiSolidSortAlt />);
+const columns = [
+	{
+		name: 'Currency Paid',
+		selector: row => row.currency,
+		sortable: true,
+	},
+	{
+		name: 'Amount',
+		selector: row => `${row.currency === 'taji' ? 'TAJI ' : row.currency === 'naira' ? '₦' : '$'}${currencyConverter(row.amount)}`,
+	},
+	{
+		name: 'Transaction Status',
+		// selector: row => row.status,
+		selector: row => (
+			<span className={`status status--${row.status === "pending" ? "pending" : "success"}`}>
+				<p>{row.status}</p>
+			</span>
+		),
+		sortable: true
+	},
+	{
+		name: 'Reference',
+		selector: row => row.reference,
+	},
+	{
+		name: 'Date',
+		selector: row => dateConverter(row.createdAt),
+		sortable: true
+	},
+]
 
-  return (
-    <table>
-        <thead>
-            <tr>
-                <th>Currency</th>
-                <th>Amount</th>
-                <th>Transaction Type</th>
-                <th></th>
-            </tr>
-        </thead>
+function DashboardTable({ pendingWithdrawals, pendingDeposits }) {
+    const [activeTab, setActiveTab] = useState('deposit');
 
-        <tbody>
-            {/* {isLoading && <Spinner />} */}
-            {pendingDeposits.length > 0 && pendingDeposits.map((deposit) => {
-                return (
-                    <TransactionTableRow currency={deposit.currency} amount={`${deposit.amount} TAJI`} transactionType={deposit.transactionType} />
-                )
-            } )}
-        </tbody>
-    </table>
-  )
+	return (
+        <div className="dashboard--table">
+            <div className="dashboard--tabs">
+                <span className={`dashboard--tab ${activeTab === "deposit" && "tab--active"}`} onClick={() => { setActiveTab("deposit")}}>Deposit</span>
+
+                <span className={`dashboard--tab ${activeTab === "withdrawal" && "tab--active"}`} onClick={() => { setActiveTab("withdrawal")}}>Withdrawal</span>
+
+            </div>
+        
+
+            {activeTab === 'deposit' && 
+                <DataTable 
+                    columns={columns}
+                    data={pendingDeposits}
+                    pagination
+                    sortIcon={sortIcon}
+                    fixedHeader
+                    fixedHeaderScrollHeight="45rem"
+                />
+            }
+
+            {activeTab === 'withdrawal' &&
+                <DataTable 
+                    columns={columns}
+                    data={pendingWithdrawals}
+                    pagination
+                    sortIcon={sortIcon}
+                    fixedHeader
+                    fixedHeaderScrollHeight="45rem"
+                />
+            }
+
+        </div>
+	);
 }
 
 export default DashboardTable;

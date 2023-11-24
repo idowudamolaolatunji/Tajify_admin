@@ -188,8 +188,8 @@
 /*  */
 .status p {
     display: inline-block;
-    padding: 1rem 1.4rem;
-    border-radius: .8rem;
+    padding: .8rem 1.4rem;
+    border-radius: .6rem;
 }
 .status--pending p {
     background-color: #ffe0cfe2;
@@ -202,4 +202,95 @@
 .status--success p {
     color: #008001;
     background-color: #d7ecd1e2;
+}
+
+
+/*  */
+
+.transaction-table,
+.dashboard--table {
+    background-color: #fff;
+    overflow: hidden;
+    border-radius: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.dashboard--tabs {
+    display: flex;
+    align-items: center;
+    background-color: #eee;
+    gap: .4rem;
+    padding: .4rem;
+    border-radius: .6rem;
+    margin: 1rem;
+}
+.dashboard--tabs.tabs--modal {
+    padding: .8rem 1.6rem;
+    justify-content: space-between;
+}
+.dashboard--tabs.tabs--modal .dashboard--tab {
+    padding: 1.2rem 1.8rem;
+}
+.dashboard--tabs.tabs--modal .dashboard--tab:hover {
+    background-color: #ddd;
+    color: #fff;
+}
+.dashboard--tabs.tabs--modal .dashboard--tab.tab--active {
+    background-color: #ff0066;
+}
+.dashboard--tab {
+    padding: .8rem 1.2rem;
+    background-color: #eee;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-radius: .6rem;
+    transition: all .35s ease-in;
+    cursor: pointer;
+}
+.dashboard--tab:hover {
+    color: #777;
+}
+
+.dashboard--tab.tab--active {
+    background-color: #ff0066;
+    color: #fff;
+}
+.dashboard--tabs.tabs--modal {
+    width: 60%;
+}
+
+
+/*  */
+
+.button--actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.button-action {
+    border: none;
+    padding: .8rem;
+    border-radius: .6rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.button-action.action-approve {
+    /* box-shadow: inset 0 0 0 .14rem #38A169;
+    background-color: transparent;
+    color: #777; */
+    background-color: #38A169;
+    color: #fff;
+}
+.button-action.action-decline {
+    /* background-color: #ee2400;
+    color: #fff; */
+    box-shadow: inset 0 0 0 .14rem #ff0066;
+    background-color: transparent;
+    color: #ff0066;
+
 }
