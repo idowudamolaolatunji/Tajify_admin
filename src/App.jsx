@@ -1,22 +1,24 @@
-import { Route, createRoutesFromElements, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
-import AdminDashboard from './pages/AdminDashboard'
+import AdminDashboard from './pages/AdminDashboard';
+import AdminAuth from "./pages/AdminAuth";
+
 
 function App() {
-	const router = createBrowserRouter(
-		createRoutesFromElements(
-			<Route>
-				<Route path="/" element={< AdminDashboard />} />
-			</Route>,
-		),
-		{ basename: "/admin-dashboard" },
-	);
-
 	return (
-		<>
-			<RouterProvider router={router} />
-		</>
+		<BrowserRouter>
+			<Routes>
+				<Route element={<PrivateRoutes />}>
+					<Route path="/" element={<AdminDashboard />}></Route>
+					<Route path="/dashboard" element={< AdminDashboard />} />
+				</Route>
+				
+				<Route path="/login" element={< AdminAuth />} />
+			</Routes>
+		</BrowserRouter>
 	);
 }
 
 export default App;
+

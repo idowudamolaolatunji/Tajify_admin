@@ -3,8 +3,8 @@ import DataTable from "react-data-table-component";
 
 import { currencyConverter, dateConverter } from "../utils/helper";
 import { BiSolidSortAlt } from "react-icons/bi";
+import Loading from "./Loading";
 
-import "../assets/css/table.css";
 
 const sortIcon = ( <BiSolidSortAlt />);
 const columns = [
@@ -19,7 +19,6 @@ const columns = [
 	},
 	{
 		name: 'Transaction Status',
-		// selector: row => row.status,
 		selector: row => (
 			<span className={`status status--${row.status === "pending" ? "pending" : "success"}`}>
 				<p>{row.status}</p>
@@ -36,9 +35,17 @@ const columns = [
 		selector: row => dateConverter(row.createdAt),
 		sortable: true
 	},
-]
+];
 
-function DashboardTable({ pendingWithdrawals, pendingDeposits }) {
+const customStyles = {
+    rows: {
+        style: {
+            minHeight: '58px',
+        },
+    },
+}
+
+function DashboardTable({ isLoading, pendingWithdrawals, pendingDeposits }) {
     const [activeTab, setActiveTab] = useState('deposit');
 
 	return (
@@ -57,8 +64,9 @@ function DashboardTable({ pendingWithdrawals, pendingDeposits }) {
                     data={pendingDeposits}
                     pagination
                     sortIcon={sortIcon}
-                    fixedHeader
-                    fixedHeaderScrollHeight="45rem"
+					progressPending={isLoading}
+					progressComponent={<Loading />}
+					customStyles={customStyles}
                 />
             }
 
@@ -68,8 +76,9 @@ function DashboardTable({ pendingWithdrawals, pendingDeposits }) {
                     data={pendingWithdrawals}
                     pagination
                     sortIcon={sortIcon}
-                    fixedHeader
-                    fixedHeaderScrollHeight="45rem"
+                    progressPending={isLoading}
+					progressComponent={<Loading />}
+					customStyles={customStyles}
                 />
             }
 

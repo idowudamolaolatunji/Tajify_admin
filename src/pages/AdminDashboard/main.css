@@ -1,6 +1,6 @@
 .admin__dashboard {
     display: grid;
-    grid-template-columns: 25rem 10fr;
+    grid-template-columns: 26.4rem 10fr;
 }
 
 #logo-container img {
@@ -18,47 +18,36 @@
     flex-direction: column;
 }
 .sidebar--list {
-    padding: 2.8rem 1.4rem;
+    margin-top: 2rem;
+    padding: 3.2rem 1.4rem 2rem;
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.6rem;
 }
-.sidebar--logout {
-    padding: 0 1.6rem 0 2.4rem;
-    margin-top: auto;
-    margin-bottom: 4rem;
-    font-size: 1.4rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: .6rem;
-}
+
 .sidebar--item {
-    color: #444;
-    font-weight: 600;
-    font-size: 1.2rem;
+    color: #555;
+    font-weight: 700;
+    font-size: 1.26rem;
     display: flex;
     align-items: center;
     gap: .8rem;
     background-color: transparent;
-    border: 1.4px solid transparent;
-    padding: 1rem 1.2rem;
+    padding: 1.2rem;
     border-radius: .6rem;
     transition: all .35s ease-in;
     cursor: pointer;
 }
 .sidebar--item:hover, .sidebar--item.sidebar--active {
-    /* background-color: #ff7bb0; */
-    border-color: #ff0066;
+    box-shadow: inset 0 0 0 .16rem #ff0066;
 }
 .sidebar--item:hover .sidebar--icon, .sidebar--item:hover,
 .sidebar--item.sidebar--active, .sidebar--active .sidebar--icon  {
-    /* color: #fff; */
     color: #ff0066;
 }
 .sidebar--icon {
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: #555;
     transition: all .35s ease-in;
 }
@@ -77,29 +66,30 @@
 .admin__nav span {
     display: flex;
     align-items: center;
-    gap: 2.8rem;
+    gap: 2.4rem;
     margin-left: auto;
 }
 .admin__nav .nav--icon {
-    font-size: 2.8rem !important;
-    color: #333;    
+    font-size: 2.4rem !important;
+    color: #555;
+    cursor: pointer;
+    transition: all .35s;
 }
-.nav--icon.admin {
-    background-color: #eee;
-    border-radius: 50%;
+.admin__nav .nav--icon:hover {
+    color: #ff0066;
 }
 
 
 .admin__main {
     display: flex;
     flex-direction: column;
-    background-color: #eee;
+    background-color: #f6f6f6;
     
     border-top-left-radius: 5.2rem;
     border-bottom-left-radius: 5.2rem;
 }
 .admin__container {
-    padding: 3.2rem 2.4rem 2.4rem;
+    padding: 3.2rem 3.4rem 2.4rem;
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -107,24 +97,22 @@
 .admin__insight {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
     width: 100%;
-    background-color: #fff;
-    box-shadow: 1rem 1rem 4rem rgba(0, 0, 0, .1);
     border-radius: .68rem;
-    border: 1px solid #ddd;
 }
 .insight {
     padding: 2rem;
-    border: 1px solid #ddd;
-    background-color: #fff;
+    background-color: #fff !important;
 
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
     align-items: flex-end;
+    transition: all .35s;
 }
 .insight:hover {
-    border: 1px solid #d0ecc8;
+    transform: translateY(-.2rem) scale(1.03);
 }
 
 
@@ -134,9 +122,9 @@
     gap: 1.2rem;
 }
 .insight--icon {
-    font-size: 1.8rem;
+    font-size: 2.4rem;
     font-weight: 600;
-    color: #777;
+    color: #555;
 }
 .insight--title {
     font-size: 1.2rem;
@@ -294,3 +282,4 @@
     color: #ff0066;
 
 }
+

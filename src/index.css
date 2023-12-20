@@ -87,4 +87,9 @@ body {
 }
 
 
-
+/* Loading */
+.loading-text {
+  margin: 2rem auto;
+  font-size: 2.2rem;
+  font-weight: 500;
+}

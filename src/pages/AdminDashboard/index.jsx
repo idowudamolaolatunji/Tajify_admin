@@ -1,36 +1,49 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { MdDashboardCustomize } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 
 import { AiOutlineBell } from "react-icons/ai";
 import { RiAdminLine } from "react-icons/ri";
-import { HiOutlineLogout } from "react-icons/hi";
-import { MdPendingActions } from "react-icons/md";
-import { LuShoppingBasket } from "react-icons/lu";
-import { MdOutlinePostAdd } from "react-icons/md";
+import { HiOutlineLogout, HiOutlineIdentification } from "react-icons/hi";
 import { GiOpenTreasureChest } from "react-icons/gi";
-
+import { FaMoneyBillTransfer } from "react-icons/fa6";
 
 
 import "./main.css";
-import "../../assets/css/table.css";
 import DashboardEl from "../../components/DashboardMain";
 import UserTable from "../../components/UserTable";
 import PendingTransactions from "../../components/TransactionTable";
 
-// import Logo from '../../assets/imgs/TAJIFY-LOGO.png';
 import Logo from '../../assets/imgs/logo-complete.png';
 import LiquidityPool from "../../components/LiquidityPool";
+import ApproveKYC from "../../components/ApproveKYC";
+import { useAuthContext } from "../../context/AuthContext";
+import Spinner from "../../components/Spinner";
+
 
 function index() {
 	const [activeTab, setActiveTab] = useState("dashboard");
+	const [isLoading, setIsLoading] = useState(false);
+	const { logout } = useAuthContext();
 
 	const changeTab = (tabName) => {
 	  setActiveTab(tabName);
 	};
 
+	function handleLogout () {
+		setIsLoading(true);
+		logout();
+
+		// logging out
+		setTimeout(() => {
+			setIsLoading(false)
+		}, 2500)
+		window.location.reload(true)
+	}
+
 	return (
+		<>
+		{ isLoading && <Spinner />}
 		<main className="admin__dashboard">
 			<menu className="admin__sidebar">
 				<span id="logo-container">
@@ -47,24 +60,18 @@ function index() {
 					</li>
 
 					<li className={`sidebar--item ${activeTab === 'pendingTransactions' ? 'sidebar--active' : ''}`} onClick={() => changeTab("pendingTransactions")}>
-						<MdPendingActions className="sidebar--icon" /> Pending Transactions
+						<FaMoneyBillTransfer className="sidebar--icon" /> Pending Transactions
 					</li>
 
 					<li className={`sidebar--item ${activeTab === 'users' ? 'sidebar--active' : ''}`} onClick={() => changeTab("users")} >
 						<FaUsers className="sidebar--icon" /> All Users
 					</li>
 
-					<li className={`sidebar--item ${activeTab === 'products' ? 'sidebar--active' : ''}`} onClick={() => changeTab("products")} >
-						<LuShoppingBasket className="sidebar--icon" /> Uploaded Products
-					</li>
-					<li className={`sidebar--item ${activeTab === 'blogPosts' ? 'sidebar--active' : ''}`} onClick={() => changeTab("blogPosts")} >
-						<MdOutlinePostAdd className="sidebar--icon" /> Blog Posts
+					<li className={`sidebar--item ${activeTab === 'kyc' ? 'sidebar--active' : ''}`} onClick={() => changeTab("kyc")} >
+						<HiOutlineIdentification className="sidebar--icon" /> Approve KYC
 					</li>
 				</ul>
 
-				<span className="sidebar--logout">
-					<HiOutlineLogout className="sidebar--icon" /> Logout
-				</span>
 			</menu>
 
 
@@ -73,6 +80,7 @@ function index() {
 					<span>
 						<AiOutlineBell className="nav--icon bell" />
 						<RiAdminLine className="nav--icon admin" />
+						<HiOutlineLogout className="nav--icon logout" onClick={handleLogout} />
 					</span>
 				</nav>
 
@@ -81,9 +89,11 @@ function index() {
 					{activeTab === "liquidity" && <LiquidityPool />}
 					{activeTab === "pendingTransactions" && <PendingTransactions />}
 					{activeTab === "users" && <UserTable />}
+					{activeTab === "kyc" && <ApproveKYC />}
 				</section>
 			</div>
 		</main>
+		</>
 	);
 }
 

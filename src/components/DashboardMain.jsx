@@ -5,9 +5,8 @@ import DashboardTable from "./DashboardTable";
 
 import { FaUsers } from "react-icons/fa";
 import { MdPendingActions } from "react-icons/md";
-import { TbBrandFeedly } from "react-icons/tb";
 import { LuShoppingBasket } from "react-icons/lu";
-import { MdOutlinePostAdd } from "react-icons/md";
+import { ImUserTie } from "react-icons/im";
 import { GiMoneyStack } from "react-icons/gi";
 import { RiStackLine } from "react-icons/ri";
 import { GrStakeholder } from "react-icons/gr";
@@ -25,7 +24,6 @@ function DashboardMain() {
 	const [stakeHolders, setStakeHolders] = useState([]);
 	const [boughtSlots, setBoughtSlots] = useState([]);
 	const [availableSlots, setAvailableSlots] = useState(1000000);
-	const [blogPosts, setBlogPosts] = useState([]);
 	const [uploadedProducts, setUploadedProducts] = useState([]);
 
 	const [isLoading, setIsLoading] = useState(false);
@@ -33,13 +31,12 @@ function DashboardMain() {
 	useEffect(() => {
 		async function fetchAll() {
 			setIsLoading(true)
-			const [usersRes, pendingDepoRes, pendingWithdrRes, stakeHoldersRes, boughtStakeRes, blogsRes, productsRes] = await Promise.all([ 
+			const [usersRes, pendingDepoRes, pendingWithdrRes, stakeHoldersRes, boughtStakeRes, productsRes] = await Promise.all([ 
 				await fetch("http://localhost:3005/api/users"),
 				await fetch("http://localhost:3005/api/transactions/pending/deposits"), 
 				await fetch("http://localhost:3005/api/transactions/pending/withdrawals"),
 				await fetch("http://localhost:3005/api/stakings/all-stakeholders"),
 				await fetch("http://localhost:3005/api/stakings/all-stakings"),
-				await fetch("http://localhost:3005/api/blogs/"),
 				await fetch("http://localhost:3005/api/market/getall"),
 			]);
 			const usersData = await usersRes.json();
@@ -47,7 +44,6 @@ function DashboardMain() {
 			const pendingWithdrData = await pendingWithdrRes.json();
 			const stakeHoldersData = await stakeHoldersRes.json();
 			const boughtStakeData = await boughtStakeRes.json();
-			const blogsData = await blogsRes.json();
 			const productsData = await productsRes.json();
 
 			const stakings = boughtStakeData.data.stakings;
@@ -65,7 +61,6 @@ function DashboardMain() {
 			setStakeHolders(stakeHoldersData.data.stakeHolders);
 			setBoughtSlots(slotsBought);
 			setAvailableSlots(slotsRemaining);
-			setBlogPosts(blogsData.data.blogs);
 			setUploadedProducts(productsData.data.products);
 			setIsLoading(false)
 		}
@@ -90,7 +85,7 @@ function DashboardMain() {
 					insightFigure={pendingWithdrawals.length}
 				/>
 				<InsightFigure
-					insightIcon={<GrStakeholder />}
+					insightIcon={<ImUserTie />}
 					insightTitle={"StakeHolders"}
 					insightFigure={stakeHolders.length}
 				/>
@@ -105,19 +100,13 @@ function DashboardMain() {
 					insightFigure={boughtSlots}
 				/>
 				<InsightFigure
-					insightIcon={<MdOutlinePostAdd />}
-					insightTitle={"Blog Posts & News"}
-					insightFigure={blogPosts.length}
-				/>
-				<InsightFigure
 					insightIcon={<LuShoppingBasket />}
 					insightTitle={"Uploaded Products"}
 					insightFigure={uploadedProducts.length}
 				/>
 			</div>
 
-			{isLoading && <Spinner />}
-			<DashboardTable pendingWithdrawals={pendingWithdrawals} pendingDeposits={pendingDeposits} />
+			<DashboardTable isLoading={isLoading} pendingWithdrawals={pendingWithdrawals} pendingDeposits={pendingDeposits} />
 		</>
 	);
 }

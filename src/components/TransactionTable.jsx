@@ -3,9 +3,9 @@ import Spinner from "./Spinner";
 import { currencyConverter, dateConverter } from "../utils/helper";
 import DataTable from "react-data-table-component";
 
-import "../assets/css/table.css";
 
 import { BiSolidSortAlt } from "react-icons/bi";
+import Loading from "./Loading";
 
 const sortIcon = ( <BiSolidSortAlt />);
 const columns = [
@@ -37,16 +37,25 @@ const columns = [
 		selector: row => dateConverter(row.createdAt),
 		sortable: true
 	},
-	{
-		name: 'Actions',
-		selector: () => (
-			<div className="button--actions">
-				<button className="button-action action-approve">Approve</button>
-				<button className="button-action action-decline">Reject</button>
-			</div>
-		),
-	}
+	// {
+	// 	name: 'Actions',
+	// 	selector: () => (
+	// 		<div className="button--actions">
+	// 			<button className="button-action action-approve">Approve</button>
+	// 			<button className="button-action action-decline">Reject</button>
+	// 		</div>
+	// 	),
+	// }
 ]
+
+const customStyles = {
+    rows: {
+        style: {
+            minHeight: '58px',
+			cursor: 'pointer'
+        },
+    },
+}
 
 function PendingTransactions({ onClick }) {
 	const [pendingDeposits, setPendingDeposits] = useState([]);
@@ -79,7 +88,6 @@ function PendingTransactions({ onClick }) {
     
 	return (
         <>
-			{isLoading && <Spinner />}
 
 			<div className="transaction-table">
 				<div className="dashboard--tabs">
@@ -91,20 +99,27 @@ function PendingTransactions({ onClick }) {
 
 				{activeTab === 'deposit' && 
 					<DataTable 
+					    title="Pending Deposits"
+						customStyles={customStyles}
 						columns={columns}
 						data={pendingDeposits}
 						sortIcon={sortIcon}
-						selectableRows
 						pagination
+						progressPending={isLoading}
+						progressComponent={<Loading />}
+						highlightOnHover
 					/>
 				}
 				{activeTab === 'withdrawal' && 
 					<DataTable 
+						title="Pending Withdrawals"
+						customStyles={customStyles}
 						columns={columns}
 						data={pendingWithdrawals}
 						sortIcon={sortIcon}
-						selectableRows
 						pagination
+						progressPending={isLoading}
+						highlightOnHover
 					/>
 				}
 				

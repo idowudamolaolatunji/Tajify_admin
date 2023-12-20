@@ -3,11 +3,10 @@
     width: 1.2rem;
     height: 1.2rem;
     animation: spinner-alone 1s infinite linear;
-    
-    
+
     position: fixed;
     top: 50%;
-    left: 60%;
+    left: 50%;
     z-index: 10000000000;
 }
 .spinner div {

@@ -3,8 +3,7 @@ import DataTable from "react-data-table-component";
 import { dateConverter } from "../utils/helper"; 
 import { BiSolidSortAlt } from "react-icons/bi";
 import Spinner from "./Spinner";
-
-import "../assets/css/table.css";
+import Loading from "./Loading";
 
 
 const sortIcon = ( <BiSolidSortAlt />);
@@ -21,7 +20,6 @@ const columns = [
 	},
 	{
 		name: 'Verified',
-		// selector: row => (row.isCompletedKyc ? 'Verified' : 'Not Verified'),
 		selector: row => (
 		<span className={`status status--${row.isCompletedKyc ? "success" : "pending"}`}>
 			<p>{row.isCompletedKyc ? 'Verified' : 'Not Verified'}</p>
@@ -43,7 +41,15 @@ const columns = [
 		sortable: true
 	},
 	
-]
+];
+
+const customStyles = {
+    rows: {
+        style: {
+            minHeight: '58px',
+        },
+    },
+}
 
 function CustomersTableEl() {
 	const [users, setUsers] = useState([]);
@@ -52,7 +58,7 @@ function CustomersTableEl() {
 	useEffect(() => {
 		async function fetchAllUsers() {
 			setIsLoading(true);
-			const response = await fetch("https://api.tajify.com/api/users");
+			const response = await fetch("http://127.0.0.1:3005/api/users");
 			const data = await response.json();
 			setUsers(data.data.users);
 			setIsLoading(false);
@@ -64,14 +70,17 @@ function CustomersTableEl() {
 
 	return (
 		<>
-			{isLoading && <Spinner />}
+			{/* {isLoading && <Spinner />} */}
 			<DataTable 
+				title="All Users"
 				columns={columns}
 				data={users}
-				pagination
 				selectableRows
+				progressPending={isLoading}
+				progressComponent={<Loading />}
 				sortIcon={sortIcon}
-				// theme="solarized"
+				pagination
+				customStyles={customStyles}
 			/>
 		</>
 	);
