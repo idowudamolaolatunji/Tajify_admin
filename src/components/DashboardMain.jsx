@@ -32,12 +32,12 @@ function DashboardMain() {
 		async function fetchAll() {
 			setIsLoading(true)
 			const [usersRes, pendingDepoRes, pendingWithdrRes, stakeHoldersRes, boughtStakeRes, productsRes] = await Promise.all([ 
-				await fetch("http://localhost:3005/api/users"),
-				await fetch("http://localhost:3005/api/transactions/pending/deposits"), 
-				await fetch("http://localhost:3005/api/transactions/pending/withdrawals"),
-				await fetch("http://localhost:3005/api/stakings/all-stakeholders"),
-				await fetch("http://localhost:3005/api/stakings/all-stakings"),
-				await fetch("http://localhost:3005/api/market/getall"),
+				await fetch("https://api.tajify.com/api/users"),
+				await fetch("https://api.tajify.com/api/transactions/pending/deposits"), 
+				await fetch("https://api.tajify.com/api/transactions/pending/withdrawals"),
+				await fetch("https://api.tajify.com/api/stakings/all-stakeholders"),
+				await fetch("https://api.tajify.com/api/stakings/all-stakings"),
+				await fetch("https://api.tajify.com/api/market/getall"),
 			]);
 			const usersData = await usersRes.json();
 			const pendingDepoData = await pendingDepoRes.json();
@@ -68,6 +68,9 @@ function DashboardMain() {
 	}, []);
 	return (
 		<>
+			<div className="dashboard_top">
+					<span className="heading__text">Dashboard</span>
+			</div>
 			<div className="admin__insight" style={{ marginBottom: '4.8rem' }}>
 				<InsightFigure
 					insightIcon={<FaUsers />}
@@ -81,7 +84,7 @@ function DashboardMain() {
 				/>
 				<InsightFigure
 					insightIcon={<MdPendingActions />}
-					insightTitle={"Pending Withdrawals"}
+					insightTitle={"Withdrawals"}
 					insightFigure={pendingWithdrawals.length}
 				/>
 				<InsightFigure
@@ -97,7 +100,7 @@ function DashboardMain() {
 				<InsightFigure
 					insightIcon={<GiMoneyStack />}
 					insightTitle={"Bought Slots"}
-					insightFigure={boughtSlots}
+					insightFigure={numberFormatter(boughtSlots || 0)}
 				/>
 				<InsightFigure
 					insightIcon={<LuShoppingBasket />}

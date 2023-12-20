@@ -37,7 +37,7 @@ const columns = [
 	},
 	{
 		name: 'Joined At',
-		selector: row => dateConverter(row.createdAt),
+		selector: row => dateConverter(row.createdAt || row.updatedAt),
 		sortable: true
 	},
 	
@@ -57,11 +57,23 @@ function CustomersTableEl() {
 
 	useEffect(() => {
 		async function fetchAllUsers() {
-			setIsLoading(true);
-			const response = await fetch("http://127.0.0.1:3005/api/users");
-			const data = await response.json();
-			setUsers(data.data.users);
-			setIsLoading(false);
+			try {
+				setIsLoading(true);
+				const response = await fetch("https://api.tajify.com/api/users", {
+					method: 'GET',
+					headers: {
+						"Content-Type": 'application/json',
+					},
+				});
+				console.log(response)
+				if(!response.ok) throw new Error('Something went wrong!')
+				const data = await response.json();
+				setUsers(data.data.users);
+			} catch(err) {
+				console.log(err)
+			} finally {
+				setIsLoading(false)
+			}
 		}
 		fetchAllUsers();
 	}, []);

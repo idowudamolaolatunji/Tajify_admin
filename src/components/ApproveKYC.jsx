@@ -50,9 +50,9 @@ function ApproveKYC() {
         async function fetchKycDocuments () {
 			setIsLoading(true)
             const [pendingKycRes, approvedKycRes, rejectedKycRes] = await Promise.all([
-                await fetch('http://127.0.0.1:3005/api/kyc/pending-kycs'),
-                await fetch('http://127.0.0.1:3005/api/kyc/approved-kycs'),
-                await fetch('http://127.0.0.1:3005/api/kyc/rejected-kycs')
+                await fetch('https://api.tajify.com/api/kyc/pending-kycs'),
+                await fetch('https://api.tajify.com/api/kyc/approved-kycs'),
+                await fetch('https://api.tajify.com/api/kyc/rejected-kycs')
             ]);
 
 			if(!pendingKycRes.ok || !approvedKycRes.ok || !rejectedKycRes.ok) {

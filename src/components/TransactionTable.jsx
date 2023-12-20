@@ -67,8 +67,8 @@ function PendingTransactions({ onClick }) {
 		async function fetchPendingTransactions() {
 			setIsLoading(true);
 			const [depositRes, withdrawalRes] = await Promise.all([
-                await fetch("http://127.0.0.1:3005/api/transactions/pending/deposits"),
-                await fetch("http://127.0.0.1:3005/api/transactions/pending/withdrawals"),
+                await fetch("https://api.tajify.com/api/transactions/pending/deposits"),
+                await fetch("https://api.tajify.com/api/transactions/pending/withdrawals"),
             ]);
 
 			const depositData = await depositRes.json();

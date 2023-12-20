@@ -105,8 +105,8 @@
     padding: 2rem;
     background-color: #fff !important;
 
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
     gap: 1.6rem;
     align-items: flex-end;
     transition: all .35s;
@@ -118,13 +118,21 @@
 
 .insight--content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-end;
     gap: 1.2rem;
 }
 .insight--icon {
     font-size: 2.4rem;
     font-weight: 600;
-    color: #555;
+    color: #008001;
+    width: 4.8rem;
+    height: 4.8rem;
+    background-color: #C6F6D5;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .insight--title {
     font-size: 1.2rem;
@@ -283,3 +291,16 @@
 
 }
 
+
+
+.dashboard_top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3.6rem;
+}
+.heading__text {
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #555;
+}

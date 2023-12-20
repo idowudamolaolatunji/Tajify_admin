@@ -45,7 +45,7 @@ function index() {
 				throw new Error("Fields Empty");
 			}
 
-			const res = await fetch("http://localhost:3005/api/users/admin-login", {
+			const res = await fetch("https://api.tajify.com/api/users/admin-login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

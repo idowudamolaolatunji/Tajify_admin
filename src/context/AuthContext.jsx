@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
 	const logout = async () => {
 		try {
-			const res = await fetch("http://localhost:3005/api/users/logout", {
+			const res = await fetch("https://api.tajify.com/api/users/logout", {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
